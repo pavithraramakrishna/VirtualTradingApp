@@ -1,0 +1,332 @@
+								
+BACKEND 								
+								
+								
+REGISTER TEST CASE								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Pre-condition	Test Steps	Test Data	Expected Result	Actual Result
+REGISTER-TC-BE-01	Valid Register Credentials	Simulate a register attempt with a valid username and password.	Positive	localhost	 Send a register request with a valid username and password.	"""email"":""keerthanam174@gmail.com"",
+  ""password"":""Keer@123"",
+  ""name"":""Keerthana Mahesh"""	- User session is successfully created. - User receives "you created account successfully".	- User session is created. - "you created account successfully".
+REGISTER-TC-BE-02	Empty Username	Simulate a register attempt with out a username .	Negative	localhost	 Send a register request with aempty username .	"""email"":""keerthanam174@gmail.com"",
+  ""password"":""Keer@123"",
+  ""name"":"" """	"- Register fails. - User receives an error message indicating the ""username is required"",
+            ""username must be atleast 3 characters long""."	"- Register fails. - User receives an error message indicating the ""username is required"",
+            ""username must be atleast 3 characters long""."
+REGISTER-TC-BE-03	Emprty Password	Simulate a register attempt with  username but without password.	Negative	localhost	Send a register request with a empty password.	"""email"":""keerthanam174@gmail.com"",
+  ""password"":"" "",
+  ""name"":""Keerthana Mahesh"""	- Register fails. - User receives an error message indicating "Password is required", "Password must be at least 8 characters long", "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character".	- Register fails. - User receives an error message indicating "Password is required", "Password must be at least 8 characters long", "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character".
+REGISTER-TC-BE-04	Emprty Email	Simulate multiple consecutive failed login attempts exceeding a predefined threshold.	Negative	localhost	 Send a register request with a empty email.	"""email"":"" "",
+  ""password"":""Keer@123"",
+  ""name"":""Keerthana Mahesh"""	- Register fails. - User receives an error message indicating  "Email is required", "Invalid Email format".	- Register fails. - User receives an error message indicating  "Email is required", "Invalid Email format".
+REGISTER-TC-BE-05	Register using already registered credentials	Simulate a login attempt with a username for a locked account.	Negative	localhost	Send a register request with the already registered account.	"""email"":""keerthanam174@gmail.com"",
+  ""password"":""Keer@123"",
+  ""name"":""Keerthana Mahesh"""	- Register fails. - User receives an error message indicating  "User already exist."	- Register fails. - User receives an error message indicating  "User already exist."
+REGISTER-TC-BE-06	Invalid Register Format	Simulate a register request with a malformed or invalid data format (e.g., missing fields, incorrect data types).	Negative	localhost	Send a register request with a malformed or invalid data format.	email: abctestgmail.com,             Username : abc1 ,                            Password: qwerty1234	- Register fails. - User receives an error message indicating  "Invalid Email format"	- Register fails. - User receives an error message indicating  "Invalid Email format"
+         								
+								
+								
+								
+								
+								
+LOGIN TEST CASE								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Pre-condition	Test Steps	Test Data	Expected Result	Actual Result
+LOGIN-TC-BE-01	Valid Login Credentials	Simulate a login attempt with a valid username and password combination for an existing user account.	Positive	localhost	Send a login request with a valid username and password.	Username/email: abctest@gmail.com, Password: qwerty1234	- User session is successfully created. - User receives a success response with an authentication token or session ID.	- User session is created. - Success response received with a valid authentication token or session ID.
+LOGIN-TC-BE-02	Invalid Username	Simulate a login attempt with a username that doesn't exist in the system.	Negative	localhost	Send a login request with a username that doesn't exist.	Username/email: abtest@gmail.com, Password: qwerty1234	- Login fails. - User receives an error message indicating the username is not found.	- Login fails. - User receives an error message indicating the username is not found.
+LOGIN-TC-BE-03	Invalid Password	Simulate a login attempt with a valid username but an incorrect password.	Negative	localhost	Send a login request with a valid username but an incorrect password.	Username/email: abctest@gmail.com, Password: qwerty123	- Login fails. - User receives an error message indicating invalid credentials.	- Login fails. - User receives an error message indicating invalid credentials.
+LOGIN-TC-BE-04	Empty Username	Simulate a login attempt with an empty username field.	Negative	localhost	 Send a login request with an empty username field.	Username/email: "", Password: qwerty1234	- Login fails. - User receives an error message indicating the username field is required.	- Login fails. - User receives an error message indicating the username field is required.
+LOGIN-TC-BE-05	Empty Password	Simulate a login attempt with a valid username but an empty password field.	Negative	localhost	Send a login request with a valid username but an empty password field.	Username/email: abctest@gmail.com, Password: ""	- Login fails. - User receives an error message indicating the password field is required.	- Login fails. - User receives an error message indicating  the password field is required.
+LOGIN-TC-BE-06	Excessive Login Attempts	Simulate multiple consecutive failed login attempts exceeding a predefined threshold.	Negative	localhost	Simulate multiple consecutive failed login attempts with an invalid username or password.	Username/email: abctest@gmail.com, Password: qwerty (multiple attempts)	- User account gets locked. - User receives an error message indicating the account is locked.	User receives an error message indicating the account is locked.
+LOGIN-TC-BE-07	Login After Account Lockout	Simulate a login attempt with a username for a locked account.	Negative	localhost	 Send a login request with the username of a locked account.	Username/email: [locked_username], Password: [any_password]	- Login fails. - User receives an error message indicating the account is locked.	Login fails. - User receives an error message indicating the account is locked.
+LOGIN-TC-BE-08	Invalid Login Format	Simulate a login request with a malformed or invalid data format (e.g., missing fields, incorrect data types).	Negative	localhost	 Send a login request with a malformed or invalid data format.	Username/email: 123 (invalid data type) or Password: [valid_password] (missing username)	- Login fails. - User receives an error message indicating an invalid request format.	- Login fails. - User receives an error message indicating an invalid request format.
+								
+								
+								
+								
+								
+								
+								
+OTP GENERATE								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Pre-condition	Test Steps	Test Data	Expected Result	Actual Result
+OTP GENERATE -TC-BE-01	Valid OTP Generation	Verify that a valid OTP is generated successfully	Positive	localhost	"-- Send a request to generate an OTP.
+-- Verify that the API response contains a valid OTP.
+-- Check that the OTP is of the expected length and format."	Email Address: tejeshvit007@gmail.com	"-- API response status code: 200 OK
+-- Response body contains a valid OTP of the expected length.
+-- OTP is sent to the provided email address."	"OTP sent successfully."
+OTP GENERATE -TC-BE-02	Invalid Email Format	"Check the behavior when an invalid email format is provided.
+"	Negative	localhost	"-- Send a request to generate an OTP with an invalid email format (e.g., missing '@' symbol).
+-- Verify that the API returns an error response with a clear message indicating the email format is invalid."	Email Address: 12345	"-- API response status code: 400 Bad Request
+-- Response body contains an error message indicating that the email format is invalid."	"Invalid Email format"
+OTP GENERATE -TC-BE-03	Empty Email Field	Test the API response when the email field is empty.	Negative	localhost	"-- Send a request to generate an OTP with an empty email field.
+-- Verify that the API returns an error response specifying that the email field is required."	Email Address:	"-- API response status code: 400 Bad Request
+-- Response body contains an error message specifying that the email field is required."	"Invalid Email format"
+OTP GENERATE -TC-BE-04	Rate Limiting	Check the API's rate-limiting mechanism for OTP generation requests.	Performance	localhost	"-- Send multiple OTP generation requests within a short time frame using the same email address.
+-- Verify that the API responds with an appropriate error message indicating that the rate limit has been exceeded."	tejeshvit007@gmail.com (send multiple requests within a short time frame)	"-- API response status code: 429 Too Many Requests
+-- Response body contains an error message indicating that the rate limit has been exceeded."	Too many requests from this IP, please try again later
+OTP GENERATE -TC-BE-05	Concurrent OTP Generation	Test the behavior of the API when multiple OTP generation requests are made concurrently.	Load	localhost	"-- Send simultaneous OTP generation requests using different email addresses.
+-- Verify that each request receives a unique OTP without interference or duplication."	"Request 1:
+Email Address: tejeshvit007@gmail.com
+Request 2:
+Email Address: user2@gmail.com"	"Both requests receive a unique OTP without interference or duplication.
+API response status code for each request: 200 OK"	Both requests receive a unique OTP without interference or duplication.
+								
+								
+								
+								
+								
+OTP MATCHING 								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Pre-condition	Test Steps	Test Data	Expected Result	Actual Result
+OTP MATCHIING -TC-BE-01	Valid Input	Verify that the API successfully creates a new password when provided with valid input data.	Positive	localhost	"-- Send a POST request to the API endpoint with the following JSON body.
+-- Verify that the response status code is 200 OK.
+-- Log in using the new password to confirm the password change."	OTP : " 123456"	The API successfully changes the password, and the user can log in using the new password.	The API successfully changes the password, and the user can log in using the new password.
+OTP MATCHIING -TC-BE-02	Invalid Input	Validate that the API handles invalid usernames gracefully and returns an appropriate error message.	Negative	localhost	"-- Send a POST request to the API endpoint with an invalid username and valid old/new passwords.
+-- Verify that the response status code is 404 Not Found.
+-- Check the response body for an error message indicating that the username is invalid."	OTP : "125643"	The API returns a 404 error with an appropriate error message.	"OTP does not match. Try again."
+OTP MATCHIING -TC-BE-03	Invalid Input	Validate that the API handles invalid usernames gracefully and returns an appropriate error message.	Negative	localhost	"-- Send a POST request to the API endpoint with an invalid username and valid old/new passwords.
+-- Verify that the response status code is 404 Not Found.
+-- Check the response body for an error message indicating that the username is invalid."	OTP : " "  	The API returns a 404 error with an appropriate error message.	"OTP required."
+								
+								
+								
+CREATE NEW PASSWORD 								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Pre-condition	Test Steps	Test Data	Expected Result	Actual Result
+CNP -TC-BE-01	Valid Input	Verify that the API successfully creates a new password when provided with valid input data.	Positive	localhost	"-- Send a POST request to the API endpoint with the following JSON body.
+-- Verify that the response status code is 200 OK.
+-- Log in using the new password to confirm the password change."	"Password :""Abcd@123"",
+ Confirm Password :""Abcd@123"""	The API successfully changes the password, and the user can log in using the new password.	The API successfully changes the password, and the user can log in using the new password.
+CNP -TC-BE-02	Invalid input	Validate that the API handles invalid password  and returns an appropriate error message.	Negative	localhost	"-- Send a POST request to the API endpoint with an invalid username and valid old/new passwords.
+-- Verify that the response status code is 404 Not Found.
+-- Check the response body for an error message indicating that the username is invalid."	Password : "Abc@134                            Confirm Password : "Abcd@134	The API returns a 404 error with an  error message "password and confirm password are not equal."	The API returns a 404 error with an  error message "password and confirm password are not equal".
+CNP -TC-BE-03	Old Password	Ensure that the API rejects the request if the old password is provided .	Negative	localhost	"-- Send a POST request to the API endpoint with a valid username, incorrect old password, and valid new password.
+-- Verify that the response status code is 401 Unauthorized.
+-- Check the response body for an error message indicating that the old password is incorrect."	"password :""Abcd@123"",
+ confirmpassword :""Abcd@123"""	The API returns a 401 error with an error message "This password already exists. Try new one."	"This password already exists. Try new one."
+CNP -TC-BE-04	Weak Password	Test the API's validation for weak passwords and verify that it enforces password strength requirements.	Negative	localhost	"-- Send a POST request to the API endpoint with a valid username, old password, and a weak new password (e.g., ""12345"").
+-- Verify that the response status code is 400 Bad Request.
+-- Check the response body for an error message indicating that the new password is weak."	"Password :""123456"",
+ Confirm Password :""123456"""	The API returns a 400 error with an appropriate error message.	" ""Password must be at least 8 characters long"",
+""Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"""
+CNP -TC-BE-05	Empty Input	Verify that the API handles requests with missing or empty input data appropriately.	Negative	localhost	"-- Send a POST request to the API endpoint with missing or empty fields in the JSON body (e.g., empty new password).
+-- Verify that the response status code is 400 Bad Request.
+-- Check the response body for an error message indicating that the request is missing required data."	"Password :""  "",
+ Confirm Password :""   """	The API returns a 400 error with an appropriate error message.	"""Password is required"",
+""Password must be at least 8 characters long"",
+ ""Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"""
+								
+								
+								
+								
+								
+								
+STOCKS (BUY & SELL)								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Pre-condition	Test Steps	Test Data	Expected Result	Actual Result
+STOCKS-TC-BE-01	Verify Buy Stock Functionality	Ensure that users can successfully buy stocks.	Positive	localhost	"-- Log in to the Virtual Stock Market platform.
+-- Navigate to the ""Buy Stocks"" section.
+-- Enter valid details such as stock symbol, quantity, and price per share.
+-- Click on the ""Buy"" button."	"Crypto Symbol: ETH
+Quantity: 10
+"	The system should process the buy request, deduct the appropriate amount from the user's balance, and add the purchased stocks to the user's portfolio.	"Purchase successful"
+STOCKS-TC-BE-02	Verify Sell Stock Functionality	Verify that users can successfully sell stocks they own.	Positive	localhost	"-- Log in to the Virtual Stock Market platform.
+-- Navigate to the ""Sell Stocks"" section.
+-- Select the stock to sell from the available options.
+-- Enter the quantity of stocks to sell.
+-- Click on the ""Sell"" button."	"Crypto Symbol: ETH
+Quantity: 10
+"	The system should process the sell request, update the user's balance with the sold amount, and remove the sold stocks from the user's portfolio.	"Sell successful"
+STOCKS-TC-BE-03	Verify Invalid Crypto Symbol 	Validate that the system handles invalid crypto symbols gracefully.	Negative	localhost	"-- Log in to the Virtual Stock Market platform.
+-- Navigate to the ""Buy Stocks"" section.
+-- Enter an invalid crypto symbol that does not exist in the market.
+-- Enter valid quantity 
+-- Click on the ""Buy"" button."	"Crypto Symbol: eth
+Quantity: 10
+"	The system should display an appropriate error message indicating that the crypto symbol is invalid and prevent the transaction.	"""Invalid crypto symbol""
+"
+STOCKS-TC-BE-04	Verify Invalid Crypto Symbol 	Validate that the system handles invalid crypto symbols gracefully.	Negative	localhost	"-- Log in to the Virtual Stock Market platform.
+-- Navigate to the ""Buy Stocks"" section.
+-- Enter invalid  valid crypto symbol, quantity.
+-- Click on the ""Buy"" button."	"Crypto Symbol: PQE
+Quantity: 10
+"	The system should display an error message .	"Internal server error."
+STOCKS-TC-BE-05	Empty Crypto Symbol	Try to  buy or sell when Crypto Symbol is empty	Functional	localhost	"-- Log in to the Virtual Stock Market platform.
+-- Navigate to the ""Buy/ Sell Stocks"" section.
+-- Enter empty crypto symbol, quantity.
+-- Click on the ""Buy"" button."	"Crypto Symbol: "" ""
+Quantity: 10
+"	The system should display an error message indicating Crypto symbol is required.	"""Crypto symbol is required""
+"
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+FRONTEND								
+								
+								
+								
+								
+								
+REGISTER TEST CASE								
+Test case ID	Test scenario	Description/Test Action	Test case type	Pre-condition	Test steps	Test Data	Expected result	Actual result
+REGISTER-TC-FE-01	Validate Register Button	Validating the registration button by entering only numbers in the first name field and with all the valid details in all other required fields	Positive	open : https://demoqa.com/register	"1. Enter the valid first name 
+  2. Enter the valid last name 
+  3. Enter the valid username 
+  4. Enter the valid password 
+  5.Verify Captcha
+  6. Click on the register button"	"first name : Vivek
+  email : keerthanam17@gmail.com
+  password : Vivek@123"	There should be a message saying " User register successfully "	There is a message saying "User registered successfully "
+REGISTER-TC-FE-02	Validate Register Button	"Validating the registration button by entering only numbers in the first name field and with all the valid details in all other required fields
+
+
+
+        
+"	Negative	open : https://demoqa.com/register	"1. Enter only numbers in the first name field
+  2. Enter valid last name field
+  3. Enter valid username field 
+  4. Enter valid password field
+  5. Verify Captcha
+  6. Click on the register button"	"first name : 123456
+email : keerthanam17@gmail.com
+  password : Vivek@123"	There should be a message saying "The First name field should not be in numbers"	There is a message saying "User registered successfully "
+REGISTER-TC-FE-03	Validate Register Button	Validating the registration page by entering only special characters in the first name field and with all the valid details in all other required fields	Negative	open : https://demoqa.com/register	"1. Enter only special characters in the first name field
+  2. Enter only special characters in the last name field
+  3. Enter the valid username field 
+  4. Enter the valid password field
+  5. Verify Captcha
+  6. Click on the register button"	"first name : @#$%
+email : keerthanam17@gmail.com
+  password : Vivek@123"	There should be a message saying "Special characters are not allowed in first name"	There is a message saying "User registered successfully "
+REGISTER-TC-FE-04	Validate Register Button	Validating the registration button without entering anything/ blank in the first name and last name and with valid details in all other required fields	Negative	open : https://demoqa.com/register	"1. Don't enter anything in the first name field
+  2. Enter valid last name
+  3. Enter the valid username field 
+  4. Enter the valid password field
+  5. Click on the checkbox field of reCAPTCHA
+  6. Click on the register button"	"first name : 
+email : keerthanam17@gmail.com
+  password : Vivek@123"	There should be a message saying "Full name required"	There is a message saying "Full name required"
+								
+								
+								
+								
+								
+								
+								
+								
+LOGIN TEST CASE								
+Test case ID	Test scenario	Description/Test Action	Test case type	Pre-condition	Test steps	Test Data	Expected result	Actual result
+LOGIN-TC-FE-01	Valid Credentials Login Test Case	Varify that users can successfully log in with valid credentials.	Positive	open : https://demoqa.com/login	"  1. Open the login page
+  2. Enter the valid Email
+  3. Enter the valid password 
+  4. Click on the login button"	"  Email : abc@gmail.com
+  Password : Vivek@123"	The user should be redirected to the dashboard page.	The user should be redirected to the dashboard page.
+LOGIN-TC-FE-02	Invalid Email Login Test Case	"Validate the behavior when an invalid Email is entered during login.
+
+        
+"	Negative	open : https://demoqa.com/login	"  1. Open the login page
+  2. Enter an invalid Email id 
+  3. Enter valid password
+  4. Click on the login button"	"  Email : 12345
+  Password : Vivek@123"	There should be a message saying "Invalid Email Format ".	There is a message saying "Invalid Email format "
+LOGIN-TC-FE-03	Invalid Password Login Test Case	Test the response when an incorrect password is entered during login.	Negative	open : https://demoqa.com/login	"  1. Open the login page
+  2. Enter the valid Email 
+  3. Enter an invalid password 
+  4. Click on the login button"	"  Email : abc@gmail.com
+  Password : 123"	There should be a message saying "Enter correct Password"	There is a message saying "Enter correct Password"
+LOGIN-TC-FE-04	Empty Email and Password Login Test case	Ensure that the system handles empty Email and Password fields appropriately during login.	Negative	open : https://demoqa.com/login	"  1. Open the login page
+  2. Leave both Email and Password fields empty
+  3. Click on the login button"	"  Email : 
+  Password : "	There should be a message saying "Please fill out this field"	There is a message saying "Please fill out this field"
+LOGIN-TC-FE-05	Forgot Password Link Test Case	Test the functionality of the "Forgot Password" link	Negative	open : https://demoqa.com/login	"  1. Open the login page
+  2. Click on the ""Forgot Password"" link"	"  Email : 
+  Password : "	The user should be redirected to the forgot password page.	The user is redirected to the forgot password page.
+								
+								
+								
+								
+								
+								
+Stocks (Buy/Sell)								
+Test case ID	Test scenario	Description/Test Action	Test case type	Test steps	Test Data	Expected result	Actual result	Pass/Fail
+STOCKS-TC-FE-01	Valid Credentials	Verify that users can successfully  buy.	Positive	-- Log in to the Virtual Stock Market platform.     -- Navigate to the "Buy Stocks" section.           -- Enter valid details such as stock symbol, quantity, and price per share.                              -- Click on the "Buy" button.	"Crypto Symbol: ETH
+Quantity: 10
+"	"Purchase Successfull"	"Purchase successfull"	Pass
+STOCKS-TC-FE-02	Valid Credentials	Verify whether that users can buy with less balance	Negative	-- Log in to the Virtual Stock Market platform.     -- Navigate to the "Buy Stocks" section.           -- Enter valid details such as stock symbol, quantity, and price per share.                              -- Click on the "Buy" button.	"Crypto Symbol: ETH
+Quantity: 10
+"	"Not enough balance to buy"	"Not enough balance to buy"	Pass
+STOCKS-TC-FE-03	Valid Credentials	Verify whether that users can sell successfully	Positive	-- Log in to the Virtual Stock Market platform.     -- Navigate to the "Buy Stocks" section.           -- Enter valid details such as stock symbol, quantity, and price per share.                              -- Click on the "Buy" button.	"Crypto Symbol: ETH
+Quantity: 10
+"	"Sell Successfull"	"Sell Successfull"	Pass
+STOCKS-TC-FE-04	Valid Credentials	Verify whether that user can sell when he don't have stocks	Negative	-- Log in to the Virtual Stock Market platform.     -- Navigate to the "Buy Stocks" section.           -- Enter valid details such as stock symbol, quantity, and price per share.                              -- Click on the "Buy" button.	"Crypto Symbol: ETH
+Quantity: 10
+"	"Not enough cryptocurrencies to sell"	"Not enough cryptocurrencies to sell"	Pass
+								
+								
+								
+								
+								
+OTP GENERATE								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Test Steps	Test Data	Expected Result	Actual Result	Pass/Fail
+OTP GENERATE -TC-FE-01	Valid OTP Generation	Verify that a valid OTP is generated successfully	Positive	- Forget Password                                         -Enter email id	Email Address: tejeshvit007@gmail.com	"OTP sent successfull"	"OTP sent successfully."	Pass
+OTP GENERATE -TC-FE-02	Invalid Email Format	"Check the behavior when an invalid email format is provided.
+"	Negative	- Forget Password                                         -Enter email id	Email Address: 12345	"Invalid email format	"Invalid Email format"	Pass
+OTP GENERATE -TC-FE-03	Empty Email Field	Test the API response when the email field is empty.	Negative	- Forget Password                                         -Enter email id	Email Address:	"Invalid email format	"Invalid Email format"	Pass
+OTP GENERATE -TC-FE-04	Rate Limiting	Check the API's rate-limiting mechanism for OTP generation requests.	Performance	- Forget Password                                         -Enter email id	tejeshvit007@gmail.com (send multiple requests within a short time frame)	Too many requests	Too many requests from this IP, please try again later	Pass
+OTP GENERATE -TC-FE-05	Concurrent OTP Generation	Test the behavior of the API when multiple OTP generation requests are made concurrently.	Load	- Forget Password                                         -Enter email id	"Request 1:
+Email Address: tejeshvit007@gmail.com
+Request 2:
+Email Address: user2@gmail.com"	"Both requests receive a unique OTP without interference or duplication.
+"	Both requests receive a unique OTP without interference or duplication.	Pass
+								
+								
+								
+								
+								
+								
+								
+								
+								
+OTP MATCHING								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Test Steps	Test Data	Expected Result	Actual Result	Pass/Fail
+OTP MATCHIING -TC-FE-01	Valid Input	Verify that the OTP matches.	Positive	-Email id                                                        -OTP	OTP : " 123456"	"Password changed successfully"	The API successfully changes the password, and the user can log in using the new password.	Pass
+OTP MATCHIING -TC-FE-02	Invalid Input	Validate that the API handles invalid usernames gracefully and returns an appropriate error message.	Negative	-Email id                                                        -OTP	OTP : "125643"	"OTP does not match"	"OTP does not match. Try again."	Pass
+OTP MATCHIING -TC-FE-03	Invalid Input	Validate that the API handles invalid usernames gracefully and returns an appropriate error message.	Negative	-Email id                                                        -OTP	OTP : " "  	OTP required	"OTP required."	Pass
+								
+								
+								
+								
+								
+								
+								
+								
+								
+CREATE NEW PASSWORD								
+Test Case ID	Test Scenario	Description/Test Action	Test Case Type	Test Steps	Test Data	Expected Result	Actual Result	Pass/Fail
+CNP -TC-FE-01	Valid Input	Verify that creates a new password when provided with valid input data is successfull.	Positive	- Enter New Password                                   -Confirm Password	"Password :""Abcd@123"",
+ Confirm Password :""Abcd@123"""	"Password changed successfully"	"Password changed successfully"	Pass
+CNP -TC-FE-02	Invalid input	Verify whether  invalid password returns an appropriate error message.	Negative	- Enter New Password                                   -Confirm Password	Password : "Abc@134                            Confirm Password : "Abcd@134	Password and Confirm Password should be same	Password and Confirm Password should be same	Pass
+CNP -TC-FE-03	Old Password	Ensure that it  rejects the request if the old password is provided .	Negative	- Enter New Password                                   -Confirm Password	"password :""Abcd@123"",
+ confirmpassword :""Abcd@123"""	This password already exists 	"This password already exists. Try new one."	Pass
+CNP -TC-FE-04	Empty Input	Verify whether it handles requests with missing or empty input data appropriately.	Negative	- Enter New Password                                   -Confirm Password	"Password :""  "",
+ Confirm Password :""   """	Password and Confirm Password are required	"Password is required", Confirm Password required	Pass
+								
