@@ -1,0 +1,6 @@
+Sl No	Submitted By	Submitted Date	Description	Defected Sprint	Assigned To	Type Of Defect	Action Taken	Action Taken Date	Status(Open/Closed)	Remarks
+1	Tejesh 	18 April 2024	We are able to do the Sign up by entering the invalid details in the full name field.	DC01	Ram	Logical	Bug is accepted and fixes is in progress	18 April 2024	Closed 	No remarks
+2	Kartik	20 April 2024	Send a login request with an empty username field.User receives an error message indicating "User is not registered" (expected =  the username field is required.)	DC02	Backend team	Logical	Bug is accepted and fixes is in progress	18 April 2024	Closed 	No remarks
+3	Kartik	20 April 2024	Send a login request with a valid username but an empty password field.User receives an error message indicating "passwords don't match"(expected =  the password field is required.)	DC03	Backend team	Logical	Bug is accepted and fixes is in progress	18 April 2024	Closed 	No remarks
+										
+				 						
